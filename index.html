@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salwa Coffee_ngopi Ingdalem pondok </title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styling & Tailwind Palette Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cafe: {
+                            bg: '#F9F5F0',
+                            bgAlt: '#F2EBDC',
+                            bgCard: '#FFFDF9',
+                            dark: '#2C1810',
+                            textMuted: '#6D5A50',
+                            accent: '#6F4E37',
+                            accentHover: '#5A3E2B',
+                            accentLight: '#E8DEC9',
+                            gold: '#D4A373'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        script: ['"Caveat"', 'cursive'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #F9F5F0;
+            color: #2C1810;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .font-script {
+            font-family: 'Caveat', cursive;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Custom Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9F5F0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C4B29E;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6F4E37;
+        }
+
+        /* Primary Coffee Button */
+        .cafe-btn {
+            background-color: #6F4E37;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(111, 78, 55, 0.15);
+        }
+        .cafe-btn:hover {
+            background-color: #5A3E2B;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(90, 62, 43, 0.25);
+        }
+
+        /* Secondary Outline Button */
+        .cafe-btn-outline {
+            border: 1px solid #6F4E37;
+            color: #6F4E37;
+            transition: all 0.3s ease;
+        }
+        .cafe-btn-outline:hover {
+            background-color: #6F4E37;
+            color: #FFFFFF;
+        }
+
+        /* Modal Overlay Backdrop */
+        .modal-overlay {
+            background-color: rgba(44, 24, 16, 0.6);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-cafe-accentLight selection:text-cafe-dark">
+    <!-- MAIN NAVBAR (NO CART ELEMENTS) -->
+    <nav class="sticky top-0 z-40 bg-[#F9F5F0]/95 backdrop-blur-md border-b border-[#E8DEC9] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Logo -->
+                <a href="#home" class="flex flex-col items-center group">
+                    <span class="font-serif text-3xl font-bold tracking-widest text-[#2C1810] group-hover:text-cafe-accent transition-colors">salwa</span>
+                    <span class="text-[9px] font-semibold tracking-[0.3em] text-[#6F4E37] uppercase -mt-1">Coffee </span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wider text-[#2C1810] uppercase">
+                    <a href="#home" class="hover:text-cafe-accent transition-colors py-1 border-b-2 border-cafe-accent">Home</a>
+                    <a href="#about" class="hover:text-cafe-accent transition-colors py-1 border-b-2 border-transparent hover:border-cafe-accent">About</a>
+                    <a href="#menu" class="hover:text-cafe-accent transition-colors py-1 border-b-2 border-transparent hover:border-cafe-accent">Menu</a>
+                    <a href="#gallery" class="hover:text-cafe-accent transition-colors py-1 border-b-2 border-transparent hover:border-cafe-accent">Gallery</a>
+                    <a href="#blog" class="hover:text-cafe-accent transition-colors py-1 border-b-2 border-transparent hover:border-cafe-accent">Blog</a>
+                    <a href="#contact" class="hover:text-cafe-accent transition-colors py-1 border-b-2 border-transparent hover:border-cafe-accent">Contact</a>
+                </div>
+
+                <!-- Right Action CTA Button (Opens Order/Reservation Modal) -->
+                <div class="hidden md:flex items-center">
+                    <button onclick="openOrderModal()" class="cafe-btn px-6 py-2.5 rounded-sm text-xs font-bold tracking-widest uppercase">
+                        Order Online
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <div class="flex md:hidden items-center">
+                    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="p-2 text-[#2C1810] focus:outline-none" aria-label="Toggle Navigation Menu">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-[#F2EBDC] border-b border-[#E8DEC9] px-6 py-4 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-[#2C1810] uppercase tracking-wider hover:text-cafe-accent">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-[#2C1810] uppercase tracking-wider hover:text-cafe-accent">About</a>
+            <a href="#menu" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-[#2C1810] uppercase tracking-wider hover:text-cafe-accent">Menu</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-[#2C1810] uppercase tracking-wider hover:text-cafe-accent">Gallery</a>
+            <a href="#blog" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-[#2C1810] uppercase tracking-wider hover:text-cafe-accent">Blog</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-sm font-semibold text-[#2C1810] uppercase tracking-wider hover:text-cafe-accent">Contact</a>
+            <div class="pt-2">
+                <button onclick="toggleMobileMenu(); openOrderModal()" class="w-full cafe-btn py-3 rounded-sm text-xs font-bold uppercase tracking-widest text-center">
+                    Order Online
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="home" class="relative py-12 lg:py-20 bg-[#F9F5F0] overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                
+                <!-- Left Top Image Showcase (Matching design image layout) -->
+                <div class="lg:col-span-3 flex lg:flex-col items-center justify-center gap-6 order-2 lg:order-1">
+                    <!-- Top Left Latte Art -->
+                    <div class="relative w-44 sm:w-52 lg:w-full max-w-[240px] group transition-transform duration-500 hover:scale-105">
+                        <div class="aspect-square rounded-full overflow-hidden shadow-xl border-4 border-white/80">
+                            <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Hot Cappuccino Latte Art" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <!-- Bottom Left Fresh Croissant -->
+                    <div class="relative w-48 sm:w-56 lg:w-full max-w-[260px] group transition-transform duration-500 hover:scale-105">
+                        <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border-4 border-white/80 transform lg:-rotate-3">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Fresh Golden Croissant" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Text Content -->
+                <div class="lg:col-span-6 text-center px-2 sm:px-6 order-1 lg:order-2 my-4 lg:my-0">
+                    <p class="font-script text-3xl sm:text-4xl text-[#6F4E37] mb-2 tracking-wide font-semibold">
+                        Welcome to Salwa Coffee
+                    </p>
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#2C1810] leading-tight mb-6 tracking-tight">
+                        Where Coffee<br>Meets Tradition
+                    </h1>
+                    <p class="text-base sm:text-lg text-[#6D5A50] max-w-md mx-auto mb-8 leading-relaxed font-light">
+                        Menikmati kopi di tengah suasana pesantren dan cerita kebersamaan.
+                    </p>
+                    <div>
+                        <a href="#menu" class="inline-block cafe-btn px-8 py-3.5 rounded-sm text-xs sm:text-sm font-bold uppercase tracking-widest shadow-md">
+                            VIEW OUR MENU
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Image Showcase -->
+                <div class="lg:col-span-3 flex lg:flex-col items-center justify-center gap-6 order-3">
+                    <!-- Top Right Blueberry Muffin -->
+                    <div class="relative w-48 sm:w-56 lg:w-full max-w-[260px] group transition-transform duration-500 hover:scale-105">
+                        <div class="aspect-square rounded-2xl overflow-hidden shadow-xl border-4 border-white/80 transform lg:rotate-3">
+                            <img src="https://images.unsplash.com/photo-1607958996333-41aef7caefaa?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Freshly Baked Muffin" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <!-- Roasted Coffee Beans Bowl -->
+                    <div class="relative w-36 sm:w-44 lg:w-full max-w-[200px] group transition-transform duration-500 hover:scale-105">
+                        <div class="aspect-square rounded-full overflow-hidden shadow-lg border-4 border-white/80">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Roasted Coffee Beans" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: WHY CHOOSE US -->
+    <section id="about" class="py-16 md:py-24 bg-[#F2EBDC] border-t border-b border-[#E8DEC9]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <div class="flex justify-center items-center space-x-2 text-[#6F4E37] mb-3">
+                    <i class="fas fa-seedling text-sm"></i>
+                    <i class="fas fa-coffee text-lg"></i>
+                    <i class="fas fa-seedling text-sm"></i>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#2C1810] mb-4">
+                    Why Choose Us?
+                </h2>
+                <p class="text-sm sm:text-base text-[#6D5A50]">
+                    We're passionate about quality, comfort, and creating memorable moments for every guest.
+                </p>
+            </div>
+
+            <!-- Feature Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Card 1: Quality Coffee -->
+                <div class="bg-[#FFFDF9] p-6 rounded-lg border border-[#E8DEC9] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="aspect-[4/3] rounded-md overflow-hidden mb-6 bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Quality Coffee Brewing" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-[#2C1810] text-center mb-2">
+                            Quality Coffee
+                        </h3>
+                        <p class="text-xs sm:text-sm text-[#6D5A50] text-center mb-6 leading-relaxed">
+                            We source the finest beans and brew every cup to perfection.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="openFeatureModal('Quality Coffee', 'We partner directly with sustainable coffee farms around the world to bring you single-origin specialty beans. Our master baristas calibrate espresso extraction daily to guarantee deep aroma, smooth crema, and rich flavor notes in every single cup.', 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800')" 
+                                class="cafe-btn px-6 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider">
+                            LEARN MORE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Fresh & Delicious -->
+                <div class="bg-[#FFFDF9] p-6 rounded-lg border border-[#E8DEC9] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="aspect-[4/3] rounded-md overflow-hidden mb-6 bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Fresh Cheesecake Pastry" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-[#2C1810] text-center mb-2">
+                            Fresh & Delicious
+                        </h3>
+                        <p class="text-xs sm:text-sm text-[#6D5A50] text-center mb-6 leading-relaxed">
+                            From pastries to meals, everything is made fresh daily.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="openFeatureModal('Fresh & Delicious', 'Our artisan bakery team begins every morning crafting fresh croissants, fruit tarts, rich cheesecakes, and gourmet paninis using organic locally sourced ingredients and authentic recipes.', 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=800')" 
+                                class="cafe-btn px-6 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider">
+                            LEARN MORE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Cozy Atmosphere -->
+                <div class="bg-[#FFFDF9] p-6 rounded-lg border border-[#E8DEC9] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="aspect-[4/3] rounded-md overflow-hidden mb-6 bg-gray-100">
+                            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800" 
+                                 alt="Cozy Cafe Interior" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-[#2C1810] text-center mb-2">
+                            Cozy Atmosphere
+                        </h3>
+                        <p class="text-xs sm:text-sm text-[#6D5A50] text-center mb-6 leading-relaxed">
+                            A warm and welcoming space to relax, work, or catch up.
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="openFeatureModal('Cozy Atmosphere', 'Designed with natural warm wood tones, soft acoustic playlists, comfortable seating, and fast fiber optic Wi-Fi, our café is your sanctuary whether reading a book or collaborating with friends.', 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800')" 
+                                class="cafe-btn px-6 py-2 rounded-sm text-[11px] font-bold uppercase tracking-wider">
+                            LEARN MORE
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: OUR MENU HIGHLIGHTS (CLEAN OF CART BUTTONS) -->
+    <section id="menu" class="py-16 md:py-24 bg-[#F9F5F0]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-10">
+                <div class="flex justify-center items-center space-x-2 text-[#6F4E37] mb-3">
+                    <i class="fas fa-leaf text-xs"></i>
+                    <i class="fas fa-coffee text-base"></i>
+                    <i class="fas fa-leaf text-xs"></i>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#2C1810] mb-3">
+                    Our Menu Highlights
+                </h2>
+                <p class="text-sm text-[#6D5A50]">
+                    Handcrafted with love, made for you.
+                </p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-10">
+                <button onclick="filterMenu('all', this)" class="menu-tab-btn active border border-[#6F4E37] bg-[#6F4E37] text-white px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shadow-sm">
+                    All
+                </button>
+                <button onclick="filterMenu('coffee', this)" class="menu-tab-btn border border-[#E8DEC9] bg-[#FFFDF9] text-[#2C1810] hover:border-[#6F4E37] px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shadow-sm">
+                    Coffee
+                </button>
+                <button onclick="filterMenu('bakery', this)" class="menu-tab-btn border border-[#E8DEC9] bg-[#FFFDF9] text-[#2C1810] hover:border-[#6F4E37] px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shadow-sm">
+                    Bakery & Pastries
+                </button>
+                <button onclick="filterMenu('food', this)" class="menu-tab-btn border border-[#E8DEC9] bg-[#FFFDF9] text-[#2C1810] hover:border-[#6F4E37] px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shadow-sm">
+                    Food
+                </button>
+                <button onclick="filterMenu('cold', this)" class="menu-tab-btn border border-[#E8DEC9] bg-[#FFFDF9] text-[#2C1810] hover:border-[#6F4E37] px-5 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all shadow-sm">
+                    Cold Drinks
+                </button>
+            </div>
+
+            <!-- Menu Cards Grid (Pure Display, NO Add-To-Cart buttons) -->
+            <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Cappuccino -->
+                <div class="menu-card category-coffee bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Cappuccino" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute top-2 right-2 bg-[#6F4E37] text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">Popular</span>
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Cappuccino</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Espresso with steamed milk foam and cocoa dusting</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$3.50</div>
+                    </div>
+                </div>
+
+                <!-- Chocolate Cake -->
+                <div class="menu-card category-bakery bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Chocolate Cake" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Chocolate Cake</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Rich layer chocolate cake topped with berries</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$4.50</div>
+                    </div>
+                </div>
+
+                <!-- Chicken Sandwich -->
+                <div class="menu-card category-food bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Chicken Sandwich" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Chicken Sandwich</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Grilled chicken, pesto & veggies on artisan sourdough</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$6.50</div>
+                    </div>
+                </div>
+
+                <!-- Iced Latte -->
+                <div class="menu-card category-cold bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Iced Latte" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Iced Latte</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Chilled espresso over ice and fresh cold milk</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$4.00</div>
+                    </div>
+                </div>
+
+                <!-- Additional items expandable on request -->
+                <div class="extra-menu-item hidden menu-card category-bakery bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Butter Croissant" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Butter Croissant</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Flaky, golden French butter croissant</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$3.20</div>
+                    </div>
+                </div>
+
+                <div class="extra-menu-item hidden menu-card category-cold bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Caramel Macchiato" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Caramel Macchiato</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Rich espresso drizzled with buttery sweet caramel</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$4.80</div>
+                    </div>
+                </div>
+
+                <div class="extra-menu-item hidden menu-card category-coffee bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Espresso Double" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Double Espresso</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Pure, intense double shot of Arabica roast</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$2.80</div>
+                    </div>
+                </div>
+
+                <div class="extra-menu-item hidden menu-card category-food bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg p-4 text-center shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="aspect-square rounded-md overflow-hidden mb-4 relative group">
+                            <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&q=80&w=600" 
+                                 alt="Avocado Toast" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h4 class="font-serif text-lg font-bold text-[#2C1810] mb-1">Avocado Toast</h4>
+                        <p class="text-xs text-[#6D5A50] mb-3">Fresh avocado, poached egg & chili flakes on sourdough</p>
+                    </div>
+                    <div>
+                        <div class="font-serif text-lg font-bold text-[#6F4E37] py-2 border-t border-[#F2EBDC]">$5.90</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW FULL MENU BUTTON -->
+            <div class="text-center mt-12">
+                <button id="viewMenuBtn" onclick="toggleFullMenu()" class="cafe-btn px-8 py-3.5 rounded-sm text-xs font-bold tracking-widest uppercase shadow-md">
+                    VIEW FULL MENU
+                </button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: VISIT US TODAY -->
+    <section id="gallery" class="py-16 md:py-24 bg-[#F2EBDC] border-t border-b border-[#E8DEC9]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                
+                <!-- Left Text Content -->
+                <div class="lg:col-span-5 text-left pr-0 lg:pr-6">
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#2C1810] mb-3">
+                        Visit Us Today
+                    </h2>
+                    
+                    <div class="flex items-center space-x-2 text-[#6F4E37] mb-6">
+                        <i class="fas fa-seedling text-sm"></i>
+                        <div class="w-16 h-0.5 bg-[#6F4E37]"></div>
+                    </div>
+
+                    <p class="text-base text-[#6D5A50] leading-relaxed mb-8">
+                        We'd love to welcome you to our café. Come for the coffee, stay for the good vibes!
+                    </p>
+
+                    <div class="space-y-4 mb-8 text-sm text-[#2C1810]">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-cafe-accent mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Address</p>
+                                <p class="text-xs text-[#6D5A50]">123 Warm Roast Avenue, Downtown Coffee District</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-phone-alt text-cafe-accent mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Phone</p>
+                                <p class="text-xs text-[#6D5A50]">(555) 019-2834</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="openLocationModal()" class="cafe-btn px-8 py-3.5 rounded-sm text-xs font-bold tracking-widest uppercase shadow-md">
+                        FIND OUR LOCATION
+                    </button>
+                </div>
+
+                <!-- Right Photo Gallery Grid (3 Images as seen in design image) -->
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Image 1: Cafe Exterior -->
+                    <div class="aspect-[3/4] rounded-lg overflow-hidden shadow-md group">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=600" 
+                             alt="Café Storefront Exterior" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <!-- Image 2: Barista Pouring Milk Art -->
+                    <div class="aspect-[3/4] rounded-lg overflow-hidden shadow-md group">
+                        <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=600" 
+                             alt="Barista Pouring Milk" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <!-- Image 3: Cozy Cafe Interior -->
+                    <div class="aspect-[3/4] rounded-lg overflow-hidden shadow-md group">
+                        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=600" 
+                             alt="Cozy Cafe Interior Table" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / NEWSLETTER SECTION -->
+    <footer id="contact" class="bg-[#F9F5F0] pt-12 pb-8 border-t border-[#E8DEC9]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center pb-10 border-b border-[#E8DEC9]">
+                
+                <!-- Left Newsletter Subscribe -->
+                <div class="md:col-span-7 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-[#E8DEC9] text-[#6F4E37] flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-coffee text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif text-lg font-bold text-[#2C1810]">Stay in the Loop</h4>
+                            <p class="text-xs text-[#6D5A50]">Subscribe to get updates on new menu items, special offers, and events.</p>
+                        </div>
+                    </div>
+
+                    <!-- Email Input Form -->
+                    <form onsubmit="handleSubscribe(event)" class="w-full sm:w-auto flex flex-1 items-center gap-2 mt-2 sm:mt-0">
+                        <input type="email" 
+                               id="subscribeEmail"
+                               placeholder="Your email address" 
+                               required
+                               class="w-full bg-[#FFFDF9] border border-[#E8DEC9] px-4 py-2.5 rounded-sm text-xs text-[#2C1810] focus:outline-none focus:border-cafe-accent">
+                        <button type="submit" class="cafe-btn px-6 py-2.5 rounded-sm text-xs font-bold uppercase tracking-wider flex-shrink-0">
+                            SUBSCRIBE
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Social Links -->
+                <div class="md:col-span-5 flex flex-col sm:flex-row items-start sm:items-center justify-start md:justify-end gap-4">
+                    <span class="font-serif text-sm font-bold text-[#2C1810]">Follow Us</span>
+                    <div class="flex items-center space-x-3 text-[#2C1810]">
+                        <a href="#" class="w-8 h-8 rounded-full border border-[#E8DEC9] bg-[#FFFDF9] flex items-center justify-center hover:bg-cafe-accent hover:text-white hover:border-cafe-accent transition-colors"><i class="fab fa-instagram text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full border border-[#E8DEC9] bg-[#FFFDF9] flex items-center justify-center hover:bg-cafe-accent hover:text-white hover:border-cafe-accent transition-colors"><i class="fab fa-facebook-f text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full border border-[#E8DEC9] bg-[#FFFDF9] flex items-center justify-center hover:bg-cafe-accent hover:text-white hover:border-cafe-accent transition-colors"><i class="fab fa-twitter text-xs"></i></a>
+                        <a href="#" class="w-8 h-8 rounded-full border border-[#E8DEC9] bg-[#FFFDF9] flex items-center justify-center hover:bg-cafe-accent hover:text-white hover:border-cafe-accent transition-colors"><i class="fab fa-pinterest text-xs"></i></a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Legal Links -->
+            <div class="pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-[#6D5A50] gap-4">
+                <p>&copy; 2026 Café. All Rights Reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-cafe-accent transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-cafe-accent transition-colors">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ORDER ONLINE / RESERVATION MODAL -->
+    <div id="orderModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="fixed inset-0 modal-overlay" onclick="closeOrderModal()"></div>
+        <div class="relative bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg max-w-md w-full p-6 shadow-2xl z-10">
+            <button onclick="closeOrderModal()" class="absolute top-4 right-4 text-[#2C1810] hover:text-cafe-accent">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-[#F2EBDC] rounded-full flex items-center justify-center mx-auto mb-2 text-cafe-accent">
+                    <i class="fas fa-utensils text-xl"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-[#2C1810]">Order & Reservation</h3>
+                <p class="text-xs text-[#6D5A50] mt-1">Place an online pickup order or reserve your table in advance.</p>
+            </div>
+
+            <form onsubmit="handleOrderSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-semibold text-[#2C1810] mb-1">Your Full Name</label>
+                    <input type="text" required placeholder="John Doe" class="w-full bg-[#F2EBDC] border border-[#E8DEC9] px-3 py-2 rounded text-[#2C1810] focus:outline-none focus:border-cafe-accent">
+                </div>
+                <div>
+                    <label class="block font-semibold text-[#2C1810] mb-1">Phone Number</label>
+                    <input type="tel" required placeholder="(555) 000-0000" class="w-full bg-[#F2EBDC] border border-[#E8DEC9] px-3 py-2 rounded text-[#2C1810] focus:outline-none focus:border-cafe-accent">
+                </div>
+                <div>
+                    <label class="block font-semibold text-[#2C1810] mb-1">Service Option</label>
+                    <select class="w-full bg-[#F2EBDC] border border-[#E8DEC9] px-3 py-2 rounded text-[#2C1810] focus:outline-none focus:border-cafe-accent">
+                        <option>Takeaway Pickup</option>
+                        <option>Table Reservation (Dine-in)</option>
+                        <option>Catering / Bulk Order</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-semibold text-[#2C1810] mb-1">Items / Special Notes</label>
+                    <textarea rows="3" placeholder="e.g. 2x Cappuccino, 1x Chocolate Cake at 10:30 AM" class="w-full bg-[#F2EBDC] border border-[#E8DEC9] px-3 py-2 rounded text-[#2C1810] focus:outline-none focus:border-cafe-accent"></textarea>
+                </div>
+                <button type="submit" class="w-full cafe-btn py-3 rounded text-xs font-bold uppercase tracking-wider mt-2">
+                    SUBMIT INQUIRY
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FEATURE / LEARN MORE DETAIL MODAL -->
+    <div id="featureModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="fixed inset-0 modal-overlay" onclick="closeFeatureModal()"></div>
+        <div class="relative bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg max-w-lg w-full p-6 shadow-2xl z-10">
+            <button onclick="closeFeatureModal()" class="absolute top-4 right-4 text-[#2C1810] hover:text-cafe-accent">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <div id="modalImageContainer" class="aspect-video rounded-md overflow-hidden mb-4 bg-gray-100">
+                <img id="modalImage" src="" alt="Feature Detail" class="w-full h-full object-cover">
+            </div>
+            <h3 id="modalTitle" class="font-serif text-2xl font-bold text-[#2C1810] mb-2"></h3>
+            <p id="modalDescription" class="text-sm text-[#6D5A50] leading-relaxed mb-6"></p>
+            <div class="text-right">
+                <button onclick="closeFeatureModal()" class="cafe-btn px-6 py-2 rounded-sm text-xs font-bold uppercase tracking-wider">
+                    CLOSE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOCATION & MAP MODAL -->
+    <div id="locationModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="fixed inset-0 modal-overlay" onclick="closeLocationModal()"></div>
+        <div class="relative bg-[#FFFDF9] border border-[#E8DEC9] rounded-lg max-w-2xl w-full p-6 shadow-2xl z-10">
+            <button onclick="closeLocationModal()" class="absolute top-4 right-4 text-[#2C1810] hover:text-cafe-accent">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            <h3 class="font-serif text-2xl font-bold text-[#2C1810] mb-1">Our Location & Hours</h3>
+            <p class="text-xs text-[#6D5A50] mb-4">We look forward to serving you!</p>
+
+            <div class="aspect-[16/9] bg-[#E8DEC9] rounded-md overflow-hidden relative mb-4 flex items-center justify-center text-center p-4">
+                <div class="space-y-2">
+                    <i class="fas fa-map-marked-alt text-4xl text-cafe-accent mb-2"></i>
+                    <p class="font-serif text-lg font-bold text-[#2C1810]">123 Warm Roast Avenue</p>
+                    <p class="text-xs text-[#6D5A50]">Downtown Coffee District, Suite 101</p>
+                    <span class="inline-block bg-[#6F4E37] text-white text-[11px] font-semibold px-3 py-1 rounded-full mt-2 cursor-pointer hover:bg-cafe-accentHover transition-colors">
+                        <i class="fas fa-directions mr-1"></i> Get Driving Directions
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-[#2C1810] mb-6">
+                <div class="bg-[#F2EBDC] p-3 rounded">
+                    <p class="font-bold mb-1"><i class="far fa-clock text-cafe-accent mr-1"></i> Opening Hours</p>
+                    <p>Monday – Sunday: 7:00 AM – 9:00 PM</p>
+                </div>
+                <div class="bg-[#F2EBDC] p-3 rounded">
+                    <p class="font-bold mb-1"><i class="fas fa-concierge-bell text-cafe-accent mr-1"></i> Services</p>
+                    <p>Dine-in, Takeaway, Outdoor Seating, Free Wi-Fi</p>
+                </div>
+            </div>
+
+            <div class="text-right">
+                <button onclick="closeLocationModal()" class="cafe-btn px-6 py-2 rounded-sm text-xs font-bold uppercase tracking-wider">
+                    CLOSE
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#2C1810] text-[#FFFDF9] px-5 py-3 rounded-lg shadow-xl border border-[#D4A373] transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 pointer-events-none">
+        <i class="fas fa-check-circle text-cafe-gold text-lg"></i>
+        <span id="toastMessage" class="text-xs font-medium">Notification message</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Toggle Mobile Navigation Dropdown Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Order Modal Functions
+        function openOrderModal() {
+            document.getElementById('orderModal').classList.remove('hidden');
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').classList.add('hidden');
+        }
+
+        function handleOrderSubmit(e) {
+            e.preventDefault();
+            closeOrderModal();
+            showToast("Thank you! Your order request has been received.");
+        }
+
+        // Feature Modal Functions
+        function openFeatureModal(title, desc, img) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
+            document.getElementById('modalImage').src = img;
+            document.getElementById('featureModal').classList.remove('hidden');
+        }
+
+        function closeFeatureModal() {
+            document.getElementById('featureModal').classList.add('hidden');
+        }
+
+        // Location Modal Functions
+        function openLocationModal() {
+            document.getElementById('locationModal').classList.remove('hidden');
+        }
+
+        function closeLocationModal() {
+            document.getElementById('locationModal').classList.add('hidden');
+        }
+
+        // Category Filter for Menu Items
+        function filterMenu(category, element) {
+            const tabs = document.querySelectorAll('.menu-tab-btn');
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-[#6F4E37]', 'text-white', 'border-[#6F4E37]');
+                tab.classList.add('bg-[#FFFDF9]', 'text-[#2C1810]', 'border-[#E8DEC9]');
+            });
+            element.classList.remove('bg-[#FFFDF9]', 'text-[#2C1810]', 'border-[#E8DEC9]');
+            element.classList.add('bg-[#6F4E37]', 'text-white', 'border-[#6F4E37]');
+
+            const cards = document.querySelectorAll('.menu-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(`category-${category}`)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Toggle Expandable Full Menu Items
+        function toggleFullMenu() {
+            const extraItems = document.querySelectorAll('.extra-menu-item');
+            const btn = document.getElementById('viewMenuBtn');
+            
+            let isExpanded = false;
+            extraItems.forEach(item => {
+                if (item.classList.contains('hidden')) {
+                    item.classList.remove('hidden');
+                    isExpanded = true;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            if (isExpanded) {
+                btn.innerText = "COLLAPSE MENU";
+            } else {
+                btn.innerText = "VIEW FULL MENU";
+            }
+        }
+
+        // Newsletter Subscription Form Handler
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('subscribeEmail');
+            if (emailInput.value) {
+                showToast("Subscribed! Thank you for joining us.");
+                emailInput.value = '';
+            }
+        }
+
+        // Toast Notification System
+        let toastTimeout;
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            toastMessage.innerText = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
